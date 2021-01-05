@@ -22,10 +22,13 @@ function make(){
     console.log(color)
     var gridPixels = container.querySelectorAll('td');
     // Once I can access the pixel in the changePixelColor() call that function instead of function(event)
-       gridPixels.forEach(gridPixel => gridPixel.addEventListener('mouseover', function(event){
-         console.log('this works');
-           this.style.backgroundColor = color;
-        }));
+       gridPixels.forEach(gridPixel => gridPixel.addEventListener('mouseover',
+        changePixelColor(this.target))
+      // function(event ){
+      //  console.log('this works');
+      //    this.style.backgroundColor = color;
+      //  })
+    );
    };
 
 function makeGrid(){
@@ -50,21 +53,21 @@ function emptyGrid(){
 }
 
 //need to pass the pixel so the style can be applied
-function changePixelColor(){
+function changePixelColor(target){
 switch (color) {
   case 'rainbow':
-    this.style.backgroundColor = `hsl(${Math.random()* 360}, 100% , 50%)`;
+    target.style.backgroundColor = `hsl(${Math.random()* 360}, 100% , 50%)`;
     break;
   case 'grey':
-    this.style.backgroundColor = `rgba(0, 0, 0, 0.1)`;
+    target.style.backgroundColor = `rgba(0, 0, 0, 0.1)`;
     break;
   case 'eraser':
-    this.style.backgroundColor = '#000000'
+    target.style.backgroundColor = '#000000';
     break;
   case 'black':
-    this.style.backgroundColor= '#FFFFFF';
+    target.style.backgroundColor = '#FFFFFF';
   default:
-    this.stye.backgroundColor = 'blue';
+    target.style.backgroundColor = 'blue';
     break;
   }
 }
@@ -91,7 +94,7 @@ function changeColor(e){
 colorButtons.forEach(colorButtons => colorButtons.addEventListener('click', changeColor))
 
 
-// doesn't apply style yet but for grid visibility 
+// doesn't apply style yet but for grid visibility
 var slider = document.getElementById('gridVisibility');
 slider.addEventListener('input', function(){
   console.log(slider.value);
