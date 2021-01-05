@@ -3,22 +3,30 @@ let rHeight = document.querySelector("#rowHeight");
 let tbl = document.getElementById('drawTable');
 let coloredTiles = document.getElementsByClassName('rows');
 const gridSquares = document.getElementsByClassName("gridcells");
-
+const colorButtons = document.querySelectorAll('.color-change');
+const container = document.querySelector('#drawTable');
+var color = 'black';
 
 function make(){
-
-for(let i=0; i< rWidth.value; i++){
-  let myRow = document.createElement("tr");
-  myRow.id = "row" + i;
-  myRow.classList.add("rows");
-  tbl.appendChild(myRow);
-  let rowW = document.getElementById("row"+ i);
-  for(let j=0; j< rHeight.value;  j++){
+  for(let i=0; i< rWidth.value; i++){
+    let myRow = document.createElement("tr");
+      myRow.id = "row" + i;
+      myRow.classList.add("rows");
+      tbl.appendChild(myRow);
+    let rowW = document.getElementById("row"+ i);
+    for(let j=0; j< rHeight.value;  j++){
     let myCell = document.createElement("td");
-    myCell.classList.add("gridcells");
-    rowW.appendChild(myCell);
-  }}
-listeners();
+      myCell.classList.add("gridcells");
+      rowW.appendChild(myCell);
+    }}
+    var gridPixels = container.querySelectorAll('td');
+       gridPixels.forEach(gridPixel => gridPixel.addEventListener('mouseover', function(event){
+         console.log('this works');
+// the next line of code works to turn the selected pixel blue
+//this.style.backgroundColor = 'blue';
+          changePixelColor();
+       }));
+
 }
 
 function makeGrid(){
@@ -42,24 +50,7 @@ function emptyGrid(){
   gridPixles.forEach(coloredTiles => coloredTiles.style.backgroundColor = 'white');
 }
 
-const container = document.querySelector('#drawTable');
-
-function listeners (){
-  var gridPixels = container.querySelectorAll('td');
-      gridPixels.forEach(gridPixel => gridPixel.addEventListener('mouseover', changePixelColor()));
-};
-
-//function listeners (){
-  //var gridPixels = container.querySelectorAll('td');
-    //  gridPixels.forEach(gridPixel => gridPixel.addEventListener('mouseover', function(event){
-      //  console.log('this works');
-        //this.style.backgroundColor = 'blue';
-    //  }));
-//};
-
-
-
-function changePixelColor(){
+function changePixelColor(color){
 switch (color) {
   case 'rainbow':
     this.style.backgroundColor = `hsl(${Math.random()* 360}, 100% , 50%)`;
@@ -73,14 +64,15 @@ switch (color) {
   case 'black':
     this.style.backgroundColor= '#000000';
   default:
-    this.stye.backgroundColor = color;
+    this.stye.backgroundColor = 'blue';
     break;
   }
 }
 
-function changeColor(event){
-  console.log('changed');
-  switch (event.target.dataset.color){
+
+function changeColor(e){
+  console.log(e.target.dataset.color);
+  switch (e.target.dataset.color){
     case 'rainbow':
       color = 'rainbow';
       break;
@@ -96,12 +88,27 @@ function changeColor(event){
   }
 }
 
+colorButtons.forEach(colorButtons => colorButtons.addEventListener('click', changeColor))
 
-function updateBorder(opac){
-  var slider = document.getElementById('gridVisibility');
-  document.getElementsByClassName('gridcells').style.border = "1px solid rgba(0,0,0,0.3)";
-};
+ //const color = document.querySelectorAll('color-change')
+  //      color.forEach(colour => color.addEventListener('click', () => {
+    //      alert(color.dataset)}));
 
-  //  slider.addEventListener('input', (e)  => {
-  //  root.style.setProperty = ("-width", e.target.value);
-  //  console.log(slider.value);
+
+
+//var slider = document.getElementById('gridVisibility');
+
+//slider.addEventListener('input', function(){
+//  console.log(slider.value/10);
+//  document.getElementsByClassName('gridcells').style.border = (slider.value/10) solid black;
+//});
+
+
+//function listeners (){
+  //var gridPixels = container.querySelectorAll('td');
+    //  gridPixels.forEach(gridPixel => gridPixel.addEventListener('mouseover', function(event){
+      //  console.log('this works');
+        //this.style.backgroundColor = 'blue';
+    //  }));
+//};
+//when x button is pressed run function changePixelColor(with xColor)

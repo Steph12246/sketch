@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <link rel="stylesheet" href="sketch1.css">
@@ -17,14 +17,10 @@
   <input type= "submit" id="submit" onclick="makeGrid()">
 </div>
 <div id="colours">
-  <button class="color-change" id="black" data-color="black" onclick="changeColor()">
-    Black</button>
-  <button class="color-change" id="rainbow" data-color="rainbow" onclick="changeColor('rainbow')">
-    Rainbow</button>
-  <button class="color-change" id="grey scale" data-color="grey" onclick="changeColor('grey')">
-    Grey Scale</button>
-  <button class="color-change" id="eraser" data-color="eraser" onclick="changeColor('eraser')">
-    Eraser</button>
+  <button class="color-change" id="blackB" data-color="black" >Black</button>
+  <button class="color-change" data-color="rainbow">Rainbow</button>
+  <button class="color-change" data-color="grey" >Grey Scale</button>
+  <button class="color-change" data-color="eraser">Eraser</button>
   <button class="color-change" id="pick">
   <input type='color'id='colorPicker'></button>
 </div>
@@ -33,7 +29,7 @@
 </div>
 <div class="adjust">
   <p id="visible">Grid Opacity </p>
-  <input type="range" min="0" max="10" value="5" id="gridVisibility" class="slider" onchange="updateBorder(this.value)">
+  <input type="range" min="0" max="10" value="5" id="gridVisibility" class="slider">
   <button class="clear" onclick="clearGrid()">Reset</button>
   <button class="empty" onclick="emptyGrid()">Clear</button>
 </div>
