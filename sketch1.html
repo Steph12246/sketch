@@ -18,18 +18,17 @@
 </div>
 <div id="colours">
   <button class="color-change" id="blackB" data-color="black" >Black</button>
-  <button class="color-change" data-color="rainbow">Rainbow</button>
-  <button class="color-change" data-color="grey" >Grey Scale</button>
+  <button class="color-change" data-color="rainbow">Random</button>
+  <button class="color-change" data-color="grey" >Grey</button>
   <button class="color-change" data-color="eraser">Eraser</button>
-  <button class="color-change" id="pick">
-  <input type='color'id='colorPicker'></button>
+
 </div>
 <div id="tableDiv">
   <table id="drawTable"></table>
 </div>
 <div class="adjust">
   <p id="visible">Grid Opacity </p>
-  <input type="range" min="0" max="10" value="5" id="gridVisibility" class="slider">
+  <input type="range" min="0" max="1" value="1" id="gridVisibility" class="slider">
   <button class="clear" onclick="clearGrid()">Reset</button>
   <button class="empty" onclick="emptyGrid()">Clear</button>
 </div>

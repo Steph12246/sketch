@@ -19,15 +19,14 @@ function make(){
       myCell.classList.add("gridcells");
       rowW.appendChild(myCell);
     }}
+    console.log(color)
     var gridPixels = container.querySelectorAll('td');
+    // Once I can access the pixel in the changePixelColor() call that function instead of function(event)
        gridPixels.forEach(gridPixel => gridPixel.addEventListener('mouseover', function(event){
          console.log('this works');
-// the next line of code works to turn the selected pixel blue
-//this.style.backgroundColor = 'blue';
-          changePixelColor();
-       }));
-
-}
+           this.style.backgroundColor = color;
+        }));
+   };
 
 function makeGrid(){
   clearGrid();
@@ -50,7 +49,8 @@ function emptyGrid(){
   gridPixles.forEach(coloredTiles => coloredTiles.style.backgroundColor = 'white');
 }
 
-function changePixelColor(color){
+//need to pass the pixel so the style can be applied
+function changePixelColor(){
 switch (color) {
   case 'rainbow':
     this.style.backgroundColor = `hsl(${Math.random()* 360}, 100% , 50%)`;
@@ -59,28 +59,28 @@ switch (color) {
     this.style.backgroundColor = `rgba(0, 0, 0, 0.1)`;
     break;
   case 'eraser':
-    this.classList.add("clearC");
+    this.style.backgroundColor = '#000000'
     break;
   case 'black':
-    this.style.backgroundColor= '#000000';
+    this.style.backgroundColor= '#FFFFFF';
   default:
     this.stye.backgroundColor = 'blue';
     break;
   }
 }
 
-
+// this selects the value of color
 function changeColor(e){
   console.log(e.target.dataset.color);
   switch (e.target.dataset.color){
     case 'rainbow':
-      color = 'rainbow';
+      color = `hsl(${Math.random()* 360}, 100% , 50%)`;
       break;
     case 'grey':
       color = 'grey';
       break;
     case 'eraser':
-      color = 'eraser';
+      color = 'white';
       break;
     default:
       color = 'black'
@@ -89,6 +89,16 @@ function changeColor(e){
 }
 
 colorButtons.forEach(colorButtons => colorButtons.addEventListener('click', changeColor))
+
+
+// doesn't apply style yet but for grid visibility 
+var slider = document.getElementById('gridVisibility');
+slider.addEventListener('input', function(){
+  console.log(slider.value);
+  let gridPixles = document.querySelectorAll('td.gridcells');
+  gridPixles.forEach(coloredTiles => coloredTiles.style.border = 'silder.value solid black');
+})
+
 
  //const color = document.querySelectorAll('color-change')
   //      color.forEach(colour => color.addEventListener('click', () => {
