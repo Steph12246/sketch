@@ -5,7 +5,7 @@ let coloredTiles = document.getElementsByClassName('rows');
 const gridSquares = document.getElementsByClassName("gridcells");
 const colorButtons = document.querySelectorAll('.color-change');
 const container = document.querySelector('#drawTable');
-var color = 'black';
+var color = '#000000';
 
 function make(){
   for(let i=0; i< rWidth.value; i++){
@@ -21,15 +21,14 @@ function make(){
     }}
     console.log(color)
     var gridPixels = container.querySelectorAll('td');
-    // Once I can access the pixel in the changePixelColor() call that function instead of function(event)
        gridPixels.forEach(gridPixel => gridPixel.addEventListener('mouseover',
-        changePixelColor(this.target))
-      // function(event ){
-      //  console.log('this works');
-      //    this.style.backgroundColor = color;
-      //  })
-    );
-   };
+      //
+      function(event ){
+      console.log('this works');
+      changePixelColor(event.target)
+     })
+   );
+  };
 
 function makeGrid(){
   clearGrid();
@@ -52,76 +51,62 @@ function emptyGrid(){
   gridPixles.forEach(coloredTiles => coloredTiles.style.backgroundColor = 'white');
 }
 
-//need to pass the pixel so the style can be applied
+
 function changePixelColor(target){
 switch (color) {
   case 'rainbow':
     target.style.backgroundColor = `hsl(${Math.random()* 360}, 100% , 50%)`;
     break;
   case 'grey':
-    target.style.backgroundColor = `rgba(0, 0, 0, 0.1)`;
+    let currentOpacity = Number(target.style.backgroundColor.slice(-4, -1));
+    console.log(currentOpacity);
+      if (currentOpacity <= 0.9){
+        target.style.backgroundColor = `rgba(0, 0, 0, ${currentOpacity + 0.1})`;
+      }
+      else if (target.style.backgroundColor == 'rgb(0, 0, 0)')
+        return;
+      else {
+        target.style.backgroundColor = `rgba(0, 0, 0, 0.1)`;
+      }
     break;
   case 'eraser':
-    target.style.backgroundColor = '#000000';
+    target.style.backgroundColor = '#FFFFFF';
     break;
   case 'black':
-    target.style.backgroundColor = '#FFFFFF';
+    target.style.backgroundColor = '#000000';
+    break;
+  case 'pickC':
+  var pickedColor = document.getElementById('colorPicker').value;
+  console.log(pickedColor)
+      target.style.backgroundColor = pickedColor;
+    break;
   default:
     target.style.backgroundColor = 'blue';
     break;
   }
 }
 
+function colorPicked(){
+  color = 'pickC';
+}
 // this selects the value of color
 function changeColor(e){
-  console.log(e.target.dataset.color);
-  switch (e.target.dataset.color){
-    case 'rainbow':
-      color = `hsl(${Math.random()* 360}, 100% , 50%)`;
-      break;
-    case 'grey':
-      color = 'grey';
-      break;
-    case 'eraser':
-      color = 'white';
-      break;
-    default:
-      color = 'black'
-      break;
-  }
+  color = e.target.dataset.color;
 }
 
 colorButtons.forEach(colorButtons => colorButtons.addEventListener('click', changeColor))
 
 
-// doesn't apply style yet but for grid visibility
+// for grid visibility
 var slider = document.getElementById('gridVisibility');
-slider.addEventListener('input', function(){
-  console.log(slider.value);
+slider.addEventListener('change', function(event){
+  let borderString;
+  if(Number(event.target.value)===0){
+    borderString = '0';
+  } else {
+    borderString=`1px solid rgba(0,0,0,${event.target.value/100}`
+  }
+  console.log(borderString);
   let gridPixles = document.querySelectorAll('td.gridcells');
-  gridPixles.forEach(coloredTiles => coloredTiles.style.border = 'silder.value solid black');
+  gridPixles.forEach(coloredTiles => coloredTiles.style.border = borderString);
 })
-
-
- //const color = document.querySelectorAll('color-change')
-  //      color.forEach(colour => color.addEventListener('click', () => {
-    //      alert(color.dataset)}));
-
-
-
-//var slider = document.getElementById('gridVisibility');
-
-//slider.addEventListener('input', function(){
-//  console.log(slider.value/10);
-//  document.getElementsByClassName('gridcells').style.border = (slider.value/10) solid black;
-//});
-
-
-//function listeners (){
-  //var gridPixels = container.querySelectorAll('td');
-    //  gridPixels.forEach(gridPixel => gridPixel.addEventListener('mouseover', function(event){
-      //  console.log('this works');
-        //this.style.backgroundColor = 'blue';
-    //  }));
-//};
-//when x button is pressed run function changePixelColor(with xColor)
